@@ -6,144 +6,67 @@ using UnityEngine.SceneManagement;
 
 public class BallControlScript : MonoBehaviour {
 
-	// Reference to Rigidbody2D component of the ball game object
-	Rigidbody rb;
+	
+	[Header("InforBall")]
+	[Range(0, 2f)]
+	public float moveSpeedModifier = 0.5f;
+	float dirX, dirY;
+	public Rigidbody body;
+	public float speedOnIce;
+	public Animator AnimFallHoll;
 
 	
-	// Range option so moveSpeedModifier can be modified in Inspector
-	// this variable helps to simulate objects acceleration
-	[Range(0.2f, 2f)]
-	public float moveSpeedModifier = 0.5f;
 
-	// Direction variables that read acceleration input to be added
-	// as velocity to Rigidbody2d component
-	float dirX, dirY;
-
-	// Reference to Balls Animator component to control animaations transition
-	Animator anim;
-
-	// Setting bool variable that ball is alive at the beginning
-	static bool isDead;
-
-	// Variable to allow or disallow movement when ball is alive or dead
-	static bool moveAllowed;
-
-	// Variable to be set to true if you win
-	static bool youWin;
-
-	// Reference to WinText game object to control its appearance
-	// Text game object can be added in inspector because of [SerializeField] line
-	[SerializeField]
-	GameObject winText;
-
-	public Animator AninBall;
+	
+	
+	
 	public bool MoveToHool;
 	public Vector3 HoolTarget;
-	// Use this for initialization
+
+	public event System.Action<float> OnActionDie;
+
+
 	void Start () {
+		body = GetComponent<Rigidbody>();
+		speedOnIce = 1;
 
-		// Turn WinText off at the start
-	//	winText.gameObject.SetActive(false);
-
-		// You don't win at the start
-		youWin = false;
-
-		// Movement is allowed at the start
-		moveAllowed = true;
-
-		// Ball is alive at the start
-		isDead = false;
-
-		// Getting Rigidbody2D component of the ball game object
-		rb = GetComponent<Rigidbody>();
-
-		// Getting Animator component of the ball game object
-		anim = GetComponent<Animator> ();
-
-		// Set BallAlive animation
-		//anim.SetBool ("BallDead", isDead);
 	}
+
+
 
 	// Update is called once per frame
 
 	
 
 	void Update () {
-
-		
-
-		if (MoveToHool)
+		if (Input.GetKeyDown(KeyCode.L))
 		{
-			transform.position = Vector3.MoveTowards(transform.position, HoolTarget, Time.deltaTime);
-			if(transform.position == HoolTarget)
-			{
-				Die_01();
-				MoveToHool = false;
-			}
-			dirX = 0;
-			dirY = 0;
-		
+			SceneManager.LoadScene("GamePlay");
+		}
 
+
+
+		if (OnActionDie!=null)
+		{
+			//body.velocity = Vector3.zero;
+			//body.isKinematic = true;
+			//transform.position = Vector3.MoveTowards(transform.position, HoolTarget, Time.deltaTime);
+			//if(transform.position == HoolTarget)
+			//{
+				
+			//	MoveToHool = false;
+			//}
+			//dirX = 0;
+			//dirY = 0;
+
+			OnActionDie(Time.deltaTime);
 		}
 		else
 		{
-			if (Input.GetKeyDown(KeyCode.L))
-			{
-				SceneManager.LoadScene("GamePlay");
-			}
+		
+			 dirY = Input.GetAxis("Vertical")   * moveSpeedModifier;
+			 dirX = Input.GetAxis("Horizontal") * moveSpeedModifier;
 
-			if (Input.GetKeyDown(KeyCode.A))
-			{
-				dirX = -0.5f;
-			}
-			if (Input.GetKeyDown(KeyCode.D))
-			{
-				dirX = 0.5f;
-			}
-			if (Input.GetKeyDown(KeyCode.W))
-			{
-				dirY = 0.5f;
-			}
-			if (Input.GetKeyDown(KeyCode.S))
-			{
-				dirY = -0.5f;
-			}
-
-			// Getting devices accelerometer data in X and Y direction
-			// multiplied by move speed modifier
-			//dirX = Input.acceleration.x * moveSpeedModifier;
-			//dirY = Input.acceleration.y * moveSpeedModifier;
-
-			// if isDead is true
-			if (isDead)
-			{
-
-				// then ball movement is stopped
-				rb.velocity = new Vector2(0, 0);
-
-				// Set Animators BallDead variable to true to switch to 
-				anim.SetBool("BallDead", isDead);
-
-				// Restart scene to play again in 1 seconds
-				Invoke("RestartScene", 1f);
-			}
-
-			// If you win
-			if (youWin)
-			{
-
-				// then turn YouWin sign on
-				winText.gameObject.SetActive(true);
-
-				// ball movement is not allowed anymore
-				moveAllowed = false;
-
-				// switch to Ball Dead Animation so ball falls into exit hole
-				anim.SetBool("BallDead", true);
-
-				// Restart scene to play again in 2 seconds
-				Invoke("RestartScene", 2f);
-			}
 
 		}
 
@@ -151,37 +74,19 @@ public class BallControlScript : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		// Setting a velocity to Rigidbody2D component according to accelerometer data
-		if (moveAllowed)
-		rb.velocity = new Vector3 (rb.velocity.x + dirX,0,rb.velocity.z + dirY);
+	
+		if (!MoveToHool)
+		body.velocity = new Vector3 ((body.velocity.x  + dirX), 0,(body.velocity.z) + dirY);
 	}
 
-	// Method is invoked by DeathHoleScript when ball touches deathHole collider
-	public static void setIsDeadTrue()
+	
+	public void FallHool()
 	{
-		// Setting isDead to true
-		isDead = true;
+	    
 	}
 
-	// Method is inviked by exit hole game object when ball thouches its collider
-	public static void setYouWinToTrue()
-	{
-		youWin = true;
-	}
 
-	// Method to restart current scene
-	void RestartScene()
-	{
-		SceneManager.LoadScene ("Scene01");
-	}
 
-	public void Die_01()
-	{
-	//	rb.isKinematic = true;
-		rb.useGravity = false;
-		rb.velocity = Vector3.zero;
-		AninBall.SetBool("Die", true);
-	}
 
 	public void Move_To_Hool(Vector3 position)
 	{
@@ -189,5 +94,91 @@ public class BallControlScript : MonoBehaviour {
 		MoveToHool = true;
 
 	}
+
+	public void AddOnActionDie(System.Action<BallControlScript> TriggerTrap, System.Action<BallControlScript> ActionActive,System.Action EndAction,float timeEnd)
+	{
+
+		 StartAcionWithTime(TriggerTrap, ActionActive, EndAction, timeEnd);
+
+	}
+	public void Done()
+	{
+		Debug.Log("Comple Method");
+	}
+
+
+	public void StartAcionWithTime(System.Action<BallControlScript> ActionTrigger, System.Action<BallControlScript> ActionUpdate, System.Action ActionRemove, float time)
+	{
+		if (ActionTrigger != null)
+		{
+			ActionTrigger(this);
+		}
+
+		System.Action expireAction = () =>
+		{
+			if (ActionRemove != null)
+			{
+				ActionRemove();
+			}
+
+		};
+
+		System.Action<float> UpdateAction = (t) =>
+		{
+			ActionUpdate(this);
+
+		};
+
+
+		SetupTimer(time, UpdateAction, expireAction);
+
+
+
+	}
+
+
+	System.Action SetupTimer(float seconds, System.Action<float> updateAction, System.Action expireAction)
+	{
+
+		float timer = 0;
+
+		System.Action expireWrapper = null;
+
+		System.Action<float> updateWrapper = null;
+		updateWrapper = (dt) =>
+		{
+			timer += dt;
+
+			if (updateAction != null)
+			{
+				updateAction(dt);
+			}
+
+			if (timer >= seconds)
+			{
+				expireWrapper();
+			}
+		};
+
+		OnActionDie += updateWrapper;
+
+
+
+		expireWrapper = () =>
+		{
+			OnActionDie -= updateWrapper;
+
+
+
+			if (expireAction != null)
+			{
+				expireAction();
+			}
+		};
+
+		return expireWrapper;
+	}
+
+
 
 }
