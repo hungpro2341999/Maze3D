@@ -14,9 +14,6 @@ public class BallControlScript : MonoBehaviour {
 	public Rigidbody body;
 	public float speedOnIce;
 	public Animator AnimFallHoll;
-
-	
-
 	
 	
 	
@@ -27,9 +24,10 @@ public class BallControlScript : MonoBehaviour {
 
 
 	void Start () {
+		
 		body = GetComponent<Rigidbody>();
 		speedOnIce = 1;
-
+		AnimFallHoll = GetComponent<Animator>();
 	}
 
 
@@ -39,12 +37,16 @@ public class BallControlScript : MonoBehaviour {
 	
 
 	void Update () {
+
+
 		if (Input.GetKeyDown(KeyCode.L))
 		{
 			SceneManager.LoadScene("GamePlay");
 		}
 
+		if (GameManager.Ins.isGameOver || GameManager.Ins.isGamePause)
 
+			return;
 
 		if (OnActionDie!=null)
 		{
@@ -101,6 +103,15 @@ public class BallControlScript : MonoBehaviour {
 		 StartAcionWithTime(TriggerTrap, ActionActive, EndAction, timeEnd);
 
 	}
+
+	public void ResetBall()
+	{
+		
+		OnActionDie = null;
+		body.isKinematic = false;
+		AnimFallHoll.SetBool("Die", false);
+	}
+
 	public void Done()
 	{
 		Debug.Log("Comple Method");

@@ -7,6 +7,6 @@ public class TargetHoll : FallHool
 
     public override void EndTrap()
     {
-        Debug.Log("Complete Game");
+        GameManager.Ins.OpenWindown(TypeWindown.NextLevel);
     }
 }
