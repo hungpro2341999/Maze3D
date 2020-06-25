@@ -52,6 +52,10 @@ public class FallHool : Trap
         {
             Target = GetComponent<Renderer>().bounds.center;
         }
+        else
+        {
+            Target = transform.position;
+        }
         
     }
 
@@ -59,7 +63,7 @@ public class FallHool : Trap
     {
        // Vector3 posRespawn;
         Vector3 DirectRespawn = (ball.transform.position - new Vector3(Target.x, ball.transform.position.y, Target.z)).normalized;
-
+        Vector3 posRespawn = ball.SetPosRespawn(ball.transform.position,Target);
         
     }
 

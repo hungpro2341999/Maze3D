@@ -26,6 +26,8 @@ public class Level : MonoBehaviour
         {
             hool.SetTarget();
         }
+
+     
     }
 
     public virtual void ResetLevel()
