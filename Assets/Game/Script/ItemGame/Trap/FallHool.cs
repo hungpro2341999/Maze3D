@@ -8,9 +8,12 @@ public class FallHool : Trap
     private const float speed = 1;
     [SerializeField]
     public Vector3 Target;
-    
+    private void Start()
+    {
+        timeEnd = 0.5f;
+    }
 
-  
+
     public override void TrapActive(BallControlScript ball)
     {
         
@@ -48,22 +51,37 @@ public class FallHool : Trap
 
     public void SetTarget()
     {
-        if (GetComponent<Renderer>() != null)
-        {
-            Target = GetComponent<Renderer>().bounds.center;
-        }
-        else
-        {
-            Target = transform.position;
-        }
-        
+        //if (GetComponent<Renderer>() != null)
+        //{
+        //    Target = GetComponent<Renderer>().bounds.center;
+        //}
+        //else
+        //{
+        //    Target = transform.position;
+        //}
+        //if (transform.GetComponentInChildren<Transform>())
+        //{
+        //    Target = GetComponent<Renderer>().bounds.center;
+        //}
+        //else
+        //{
+        //    Target = transform.position;
+        //}
+        Debug.Log(transform.GetChild(0).position);
+        Target =  transform.GetChild(0).transform.position;
     }
 
     public void SetPosRespawn(BallControlScript ball)
     {
+     
+
        // Vector3 posRespawn;
         Vector3 DirectRespawn = (ball.transform.position - new Vector3(Target.x, ball.transform.position.y, Target.z)).normalized;
         Vector3 posRespawn = ball.SetPosRespawn(ball.transform.position,Target);
+        GamePlayCtrl.Ins.GetCurrLevel().PosContinue = posRespawn;
+         
+        
+
         
     }
 

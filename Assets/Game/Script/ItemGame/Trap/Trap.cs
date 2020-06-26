@@ -32,7 +32,7 @@ public abstract class Trap : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == 8)
+        if(other.gameObject.tag == "Ball")
         {
             ActiveEffTrap(other.GetComponent<BallControlScript>());
         }

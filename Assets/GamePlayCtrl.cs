@@ -45,13 +45,10 @@ public class GamePlayCtrl : MonoBehaviour
 
     public void ContinueLevel()
     {
-        foreach (var level in LevesGame)
-        {
-            if (level.level == LevelGameCurr)
-            {
-                level.StartLevel();
-            }
-        }
+                Level level = GetCurrLevel();
+                level.ContinueLevel();
+           
+       
 
         GameManager.Ins.isGameOver = false;
     }
@@ -71,11 +68,12 @@ public class GamePlayCtrl : MonoBehaviour
     {
          foreach (var level in LevesGame)
         {
-            if (level.level == LevelGameCurr)
+            if (level.gameObject.activeSelf)
             {
                 return level;
             }
         }
+        Debug.Log("Not level Visible");
         return null;
     }
 

@@ -11,6 +11,7 @@ public class Level : MonoBehaviour
     public Vector3 PosInit;
     public Vector3 PosContinue;
     public bool levelComplete = false;
+    
     private void Start()
     {
 
@@ -54,6 +55,8 @@ public class Level : MonoBehaviour
     {
         Ball.transform.position = PosContinue;
         GameManager.Ins.isGameOver = false;
+        Ball.body.velocity = Vector3.zero;
+        Ball.body.isKinematic = false;
     }
 
     public void CloseLevel()
