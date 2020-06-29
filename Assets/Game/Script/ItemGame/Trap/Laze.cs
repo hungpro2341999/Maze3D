@@ -16,6 +16,11 @@ public class Laze : Trap
     public bool ShootForWard;
 
     public float DelayShootBack;
+
+    public SpriteRenderer Img;
+    public Vector3 PosRespawn;
+
+
     private void Start()
     {
         
@@ -26,15 +31,15 @@ public class Laze : Trap
         {
             if (time <= Delay)
             {
+                timeDelayShootBack = 0;
                 time += Time.deltaTime* SpeedDelay;
-                if(time <= Delay)
-                {
-                    ShootForWard = true;
-                }
+                Img.color = new Color(1, 1, 1, 0.5f);
+                GetComponent<BoxCollider>().enabled = false;
+               
             }
             else
             {
-
+               
                 ShootLaze();
             }
         }
@@ -42,48 +47,41 @@ public class Laze : Trap
 
     public void ShootLaze()
     {
-        if (ShootForWard)
+        if (timeDelayShootBack <= DelayShootBack)
         {
-            Vector3 localScale = transform.localScale;
-            localScale.x = Mathf.MoveTowards(localScale.x, LengthLaze, Time.deltaTime * SpeedLaze);
-            transform.localScale = localScale;
-            if (timeDelayShootBack <= DelayShootBack)
-            {
-             
-                timeDelayShootBack += Time.deltaTime;
-            }
-            else
-            {
-                if (localScale.x == LengthLaze)
-                {
-                    ShootForWard = false;
-                }
-            }
-         
-
-
+            GetComponent<BoxCollider>().enabled = true;
+            Img.color = new Color(1, 1, 1, 1);
+            timeDelayShootBack += Time.deltaTime;
         }
         else
         {
-            Vector3 localScale = transform.localScale;
-            localScale.x = Mathf.MoveTowards(localScale.x, 0, Time.deltaTime * SpeedLaze);
-            transform.localScale = localScale;
-
-            if (transform.localScale.x == 0)
-            {
-                timeDelayShootBack = 0;
-                   time = 0;
-            }
-            // CompleteLaze
-
-
-      
+            time = 0;
         }
+       
+      
+
+    }
+
+    public override void TriggerTrap(BallControlScript ball)
+    {
+        GameManager.Ins.OpenWindown(TypeWindown.OverGame);
+        GameManager.Ins.isGameOver = true;
+    }
+    public override void TrapActive(BallControlScript ball)
+    {
        
     }
 
-    public override void TrapActive(BallControlScript ball)
+    public void SetPosRespawn(BallControlScript ball)
     {
-        Debug.Log("GameOver");
+
+
+      
+        PosRespawn = new Vector3(PosRespawn.x, ball.transform.position.y, PosRespawn.z);
+        GamePlayCtrl.Ins.GetCurrLevel().PosContinue = PosRespawn;
+
+
+
+
     }
 }

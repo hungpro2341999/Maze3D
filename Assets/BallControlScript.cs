@@ -122,7 +122,7 @@ public class BallControlScript : MonoBehaviour {
 
 		Debug.Log("Target : " + target + " Fall Holl " + FallHoll);
 		Vector2 direct = (new Vector2(FallHoll.x,FallHoll.z) - new Vector2(target.x,target.z)).normalized;
-		float radius = 0.35f;
+		float radius = 0.7f;
 		int i = 0;
 		int loop = 0;
 		while (true)
@@ -134,37 +134,41 @@ public class BallControlScript : MonoBehaviour {
 				break;
 			}
 
-			i+=3;
-			if (i >= 360)
-			{
-				i = 0;
-				radius += 0.06f;
-			}
 			
+			if (i > List_direct.Count)
+			{
+				i=0;
+				radius += 0.1f;
+			}
+
+			if (Vector2.Angle(direct, List_direct[i]) >= 90)
+			{
+				continue;
+			}
 			//Debug.Log("Target : "+target +" Fall Holl "+ FallHoll);
 
 
 
 		//	Vector2 posRandom = List_direct[UnityEngine.Random.Range(0, List_direct.Count)].normalized;
 
-		  Vector2 posRandom = UnityEngine.Random.insideUnitCircle;
+		   Vector2 posRandom = UnityEngine.Random.insideUnitCircle;
 
-		
-			
-				var vForce = Quaternion.AngleAxis(i, Vector3.forward) * Vector3.right;
-				//Debug.Log(vForce.x + "  " + vForce.y + " " + vForce.z + " = " + i);
+		   var vForce = Quaternion.AngleAxis(i, Vector3.forward) * new Vector3(direct.x,0,direct.y);
 
-			posRandom = vForce;
+			Debug.Log("Angle : " + Vector3.Angle(vForce, new Vector3(direct.x, 0, direct.y)) +" "+i);
+
+
+			posRandom = List_direct[i].normalized;
 			Vector2 axit = posRandom;
-		
-			if (Vector2.Angle(direct, axit) >= 30)
+			if (Vector3.Angle(vForce, new Vector3(direct.x, 0, direct.y)) >= 90)
 			{
-			
 				continue;
 			}
 
+
 			Vector2 pos = new Vector2(target.x,target.z) + posRandom * radius;
 
+			Debug.Log("PosDirect : " + pos);
 
 			if (Physics.Raycast(new Ray(new Vector3(target.x, -9.8f, target.z), new Vector3(posRandom.x, 0, posRandom.y).normalized),
 				Vector2.Distance(new Vector2(pos.x, pos.y), new Vector2(target.x, target.z))))
@@ -177,7 +181,7 @@ public class BallControlScript : MonoBehaviour {
 
 			RaycastHit hit;
 
-			if(Physics.SphereCast(new Vector3(pos.x, -10.2f, pos.y), 0.3f, transform.up, out hit,0.3f, Mask))
+			if(Physics.SphereCast(new Vector3(pos.x, -10.2f, pos.y), 0.2f, transform.up, out hit,0.2f, Mask))
 			{
 
 			  

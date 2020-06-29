@@ -15,10 +15,10 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == 8)
+        if(other.gameObject.tag == "Ball")
         {
            
-            ActiveItemTriger(other.gameObject.GetComponent<BallControlScript>());
+            ActiveItemTriger(other.gameObject.transform.parent.GetComponent<BallControlScript>());
         }
     }
  

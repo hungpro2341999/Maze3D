@@ -6,6 +6,7 @@ public class GroundHool : Trap
 {
     public Vector3 Target;
 
+    public Vector3 PosContinue;
     public override void TriggerTrap(BallControlScript ball)
     {
 
@@ -26,6 +27,9 @@ public class GroundHool : Trap
         }
       
     }
+
+  
+
     public override void EndTrap()
     {
         GameManager.Ins.isGameOver = true;

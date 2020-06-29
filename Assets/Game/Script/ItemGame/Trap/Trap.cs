@@ -34,7 +34,7 @@ public abstract class Trap : MonoBehaviour
     {
         if(other.gameObject.tag == "Ball")
         {
-            ActiveEffTrap(other.GetComponent<BallControlScript>());
+            ActiveEffTrap(other.transform.parent.GetComponent<BallControlScript>());
         }
 
         

@@ -9,8 +9,8 @@ public class Teleport : Item
     public bool Send = false;
     public override void ActiveItemTriger(BallControlScript ball)
     {
-        //if (Send)
-        //    return;
+        if (Send)
+            return;
         SendToPort(TargetPort,ball);
 
         
@@ -19,7 +19,7 @@ public class Teleport : Item
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 8)
+        if (other.gameObject.tag == "Ball")
         {
             Send = false;
         }
@@ -28,7 +28,7 @@ public class Teleport : Item
     public void SendToPort(Teleport Port,BallControlScript ball) 
     {
         Port.Send = true;
-        ball.transform.position = Port.transform.position;
+        ball.transform.position =  new Vector3(Port.transform.position.x,ball.transform.position.y, Port.transform.position.z);
     }
      
      

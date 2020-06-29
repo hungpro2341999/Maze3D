@@ -8,11 +8,13 @@ public class FallHool : Trap
     private const float speed = 1;
     [SerializeField]
     public Vector3 Target;
+    public Vector3 PosRespawn;
     private void Start()
     {
-        timeEnd = 0.5f;
+        GetComponent<SphereCollider>().radius = 0.07f;
+        timeEnd = 0.35f;
     }
-
+    
 
     public override void TrapActive(BallControlScript ball)
     {
@@ -51,38 +53,44 @@ public class FallHool : Trap
 
     public void SetTarget()
     {
-        //if (GetComponent<Renderer>() != null)
-        //{
-        //    Target = GetComponent<Renderer>().bounds.center;
-        //}
-        //else
-        //{
-        //    Target = transform.position;
-        //}
-        //if (transform.GetComponentInChildren<Transform>())
-        //{
-        //    Target = GetComponent<Renderer>().bounds.center;
-        //}
-        //else
-        //{
-        //    Target = transform.position;
-        //}
-        Debug.Log(transform.GetChild(0).position);
-        Target =  transform.GetChild(0).transform.position;
+        if (GetComponent<Renderer>() != null)
+        {
+            Target = GetComponent<Renderer>().bounds.center;
+        }
+        else
+        {
+            Target = transform.position;
+        }
+        if (transform.GetComponentInChildren<Transform>())
+        {
+            Target = GetComponent<Renderer>().bounds.center;
+        }
+        else
+        {
+            Target = transform.position;
+        }
+
+        Debug.Log(gameObject.name);
+      
+        
+        if(transform.GetChild(0)!=null)
+        PosRespawn = transform.GetChild(0).transform.position;
+       
     }
 
     public void SetPosRespawn(BallControlScript ball)
     {
-     
 
-       // Vector3 posRespawn;
+
+        Vector3 posRespawn;
         Vector3 DirectRespawn = (ball.transform.position - new Vector3(Target.x, ball.transform.position.y, Target.z)).normalized;
-        Vector3 posRespawn = ball.SetPosRespawn(ball.transform.position,Target);
+        posRespawn = ball.SetPosRespawn(ball.transform.position, Target);
+        posRespawn = new Vector3(posRespawn.x, ball.transform.position.y, posRespawn.z);
         GamePlayCtrl.Ins.GetCurrLevel().PosContinue = posRespawn;
-         
-        
 
-        
+
+
+
     }
 
 
