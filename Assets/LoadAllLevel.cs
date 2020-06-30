@@ -9,7 +9,11 @@ public class LoadAllLevel : MonoBehaviour
         var a =  transform.GetComponentsInChildren<Level>();
         foreach(var level in a)
         {
+           
             level.SetUp();
         }
+       
+
+     
     }
 }

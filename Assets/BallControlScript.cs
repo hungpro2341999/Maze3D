@@ -14,7 +14,7 @@ public class BallControlScript : MonoBehaviour {
 	public Rigidbody body;
 	public float speedOnIce;
 	public Animator AnimFallHoll;
-	public  List<Vector2> List_direct = new List<Vector2>();
+	public float[] ArrAngle;
 	public LayerMask Mask;
 	
 	public bool MoveToHool;
@@ -110,57 +110,77 @@ public class BallControlScript : MonoBehaviour {
 		 StartAcionWithTime(TriggerTrap, ActionActive, EndAction, timeEnd);
 
 	}
-
-    public Vector3 SetPosRespawn(Vector3 FallHoll,Vector3 target)
+	//public Vector3 SetPosFollowDirect(Vector3 direct,float dis, Vector3 target)
+	//{
+	//	dis  += 0.05f;
+	//	Vector3 pos = target + direct * dis;
+	//	while (true)
+	//	{
+	//		RaycastHit hit;
+	//		if (Physics.SphereCast(new Vector3(pos.x, -10.2f, pos.y), 0.2f, transform.up, out hit, 0.2f, Mask))
+	//		{
+	//			pos = target + direct * dis;
+	//			dis += 0.05f;
+	//			continue;
+	//		}
+	//		else
+	//		{
+	//			break;
+	//		}
+	//	}
+	//}
+    public Vector3 SetPosRespawn(Vector3 FallHoll,Vector3 target,Vector3 Axit)
     {
-		
-	
 
+
+		Debug.Log("Axit : " + Axit);
 		int layer = gameObject.layer;
 		gameObject.layer = 2;
 
 
 		Debug.Log("Target : " + target + " Fall Holl " + FallHoll);
 		Vector2 direct = (new Vector2(FallHoll.x,FallHoll.z) - new Vector2(target.x,target.z)).normalized;
-		float radius = 0.7f;
+		float radius = 0.4f;
 		int i = 0;
 		int loop = 0;
 		while (true)
 		{
 			loop++;
-			if (loop >= 8000)
+			if (loop >= 1000)
 			{
 				Debug.Log("Can't not find Pos");
 				break;
 			}
-
+			i++;
 			
-			if (i > List_direct.Count)
+			if (i >= ArrAngle.Length)
 			{
 				i=0;
-				radius += 0.1f;
+				radius += 0.02f;
 			}
-
-			if (Vector2.Angle(direct, List_direct[i]) >= 90)
-			{
-				continue;
-			}
+			
+		    
 			//Debug.Log("Target : "+target +" Fall Holl "+ FallHoll);
 
 
 
-		//	Vector2 posRandom = List_direct[UnityEngine.Random.Range(0, List_direct.Count)].normalized;
+			//	Vector2 posRandom = List_direct[UnityEngine.Random.Range(0, List_direct.Count)].normalized;
 
-		   Vector2 posRandom = UnityEngine.Random.insideUnitCircle;
+			Vector2 posRandom;
+			//if (Vector3.Angle(new Vector3(direct.x, 0, direct.y), Axit) > 90)
+			//{
+			//	continue;
+			//}
+			var vForce = Quaternion.AngleAxis(ArrAngle[i], Vector3.up) * Axit;
+			Debug.Log("Angle : " + vForce +" "+i);
+			if (Vector3.Angle(new Vector3(direct.x, 0, direct.y), vForce) >= 100)
+			{
+				continue;
+			}
 
-		   var vForce = Quaternion.AngleAxis(i, Vector3.forward) * new Vector3(direct.x,0,direct.y);
-
-			Debug.Log("Angle : " + Vector3.Angle(vForce, new Vector3(direct.x, 0, direct.y)) +" "+i);
-
-
-			posRandom = List_direct[i].normalized;
+			posRandom = vForce.normalized;
 			Vector2 axit = posRandom;
-			if (Vector3.Angle(vForce, new Vector3(direct.x, 0, direct.y)) >= 90)
+			if (Vector3.Angle(vForce, new Vector3(direct.x, 0, direct.y)) > 90)
 			{
 				continue;
 			}
@@ -170,12 +190,12 @@ public class BallControlScript : MonoBehaviour {
 
 			Debug.Log("PosDirect : " + pos);
 
-			if (Physics.Raycast(new Ray(new Vector3(target.x, -9.8f, target.z), new Vector3(posRandom.x, 0, posRandom.y).normalized),
-				Vector2.Distance(new Vector2(pos.x, pos.y), new Vector2(target.x, target.z))))
-			{
-				Debug.Log("Block");
-				continue;
-			}
+			//if (Physics.Raycast(new Ray(new Vector3(target.x, transform.position.y, target.z), new Vector3(posRandom.x, 0, posRandom.y).normalized),
+			//	Vector2.Distance(new Vector2(pos.x, pos.y), new Vector2(target.x, target.z))))
+			//{
+			//	Debug.Log("Block");
+			//	continue;
+			//}
 
 			Debug.Log(target + "  " + posRandom + "  " + radius + " Result :  " + pos);
 

@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class FallHool : Trap
 {
+    public enum TypeRespawn { Default,Auto};
     [SerializeField]
     private const float speed = 1;
     [SerializeField]
     public Vector3 Target;
+    public Vector3 Axit;
     public Vector3 PosRespawn;
+    public TypeRespawn type;
+    [SerializeField]
+    public ArrayPointSpawn[] ArrayRespawn;
+    
     private void Start()
     {
-        GetComponent<SphereCollider>().radius = 0.07f;
+        GetComponent<SphereCollider>().radius = 0.12f;
+        GetComponent<SphereCollider>().isTrigger = true;
         timeEnd = 0.35f;
     }
     
@@ -51,7 +58,7 @@ public class FallHool : Trap
 
     }
 
-    public void SetTarget()
+    public virtual void SetTarget()
     {
         if (GetComponent<Renderer>() != null)
         {
@@ -71,29 +78,77 @@ public class FallHool : Trap
         }
 
         Debug.Log(gameObject.name);
-      
-        
-        if(transform.GetChild(0)!=null)
-        PosRespawn = transform.GetChild(0).transform.position;
-       
+
+        if (type == TypeRespawn.Default)
+        {
+            if (transform.GetChild(0) != null)
+                PosRespawn = transform.GetChild(0).transform.position;
+        }
+        else if(type == TypeRespawn.Auto)
+        {
+          
+           
+            
+            for (int i= 0; i < 2; i++)
+            {
+                ArrayRespawn[i].posRespawn = transform.GetChild(i).transform.position;
+            }
+        }
+
+
     }
 
     public void SetPosRespawn(BallControlScript ball)
     {
+      
+       if(type == TypeRespawn.Auto)
+        {
+            //Vector3 posRespawn;
+            //Vector3 DirectRespawn = (ball.transform.position - new Vector3(Target.x, ball.transform.position.y, Target.z)).normalized;
+            //posRespawn = ball.SetPosRespawn(ball.transform.position, Target ,Axit);
+            //posRespawn = new Vector3(posRespawn.x, ball.transform.position.y, posRespawn.z);
+            //GamePlayCtrl.Ins.GetCurrLevel().PosContinue = posRespawn;
+
+            Vector3 direct = (ball.transform.position - Target).normalized;
+            float angle = 1000;
+            ArrayPointSpawn Arr = null;
+            for(int i = 0; i < ArrayRespawn.Length; i++)
+            {
+
+                var a = Vector3.Angle(ArrayRespawn[i].Axit, direct);
+                if (a < angle)
+                {
+                    angle = a;
+                    Arr = ArrayRespawn[i];
+                }
+            }
+
+            GamePlayCtrl.Ins.GetCurrLevel().PosContinue = new Vector3(Arr.posRespawn.x,ball.transform.position.y,Arr.posRespawn.z);
 
 
-        Vector3 posRespawn;
-        Vector3 DirectRespawn = (ball.transform.position - new Vector3(Target.x, ball.transform.position.y, Target.z)).normalized;
-        posRespawn = ball.SetPosRespawn(ball.transform.position, Target);
-        posRespawn = new Vector3(posRespawn.x, ball.transform.position.y, posRespawn.z);
-        GamePlayCtrl.Ins.GetCurrLevel().PosContinue = posRespawn;
+
+
+
+        }
+        else
+        {
+            Vector3 posRespawn = new Vector3(PosRespawn.x, ball.transform.position.y, PosRespawn.z);
+            GamePlayCtrl.Ins.GetCurrLevel().PosContinue = posRespawn;
+
+        }
+
 
 
 
 
     }
+   [System.Serializable]
+    public class ArrayPointSpawn
+    {
+        public Vector3 Axit;
+        public Vector3 posRespawn;
 
-
+    }
 
 
 

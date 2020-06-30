@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +11,10 @@ public class GroundHool : Trap
     public override void TriggerTrap(BallControlScript ball)
     {
 
-        Target = ball.transform.position + ball.body.velocity.normalized*0.1f;
+        Target = ball.transform.position + ball.body.velocity.normalized*3f;
         ball.body.isKinematic = true;
         ball.body.velocity = Vector3.zero;
+        GamePlayCtrl.Ins.GetCurrLevel().PosContinue = new Vector3(PosContinue.x,ball.transform.position.y,PosContinue.z);
 
 
     }
@@ -28,7 +30,10 @@ public class GroundHool : Trap
       
     }
 
-  
+    public void SetTarget()
+    {
+        PosContinue = transform.GetChild(0).transform.position;
+    }
 
     public override void EndTrap()
     {

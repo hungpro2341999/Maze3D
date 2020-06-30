@@ -19,6 +19,9 @@ public class Laze : Trap
 
     public SpriteRenderer Img;
     public Vector3 PosRespawn;
+    public float DelayStart;
+    public float timeDelayStart;
+   
 
 
     private void Start()
@@ -27,6 +30,11 @@ public class Laze : Trap
     }
     private void Update()
     {
+        if(timeDelayStart < DelayStart)
+        {
+            timeDelayStart += Time.deltaTime;
+            return;
+        }
         if (gameObject.activeSelf)
         {
             if (time <= Delay)

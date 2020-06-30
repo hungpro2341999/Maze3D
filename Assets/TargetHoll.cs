@@ -9,4 +9,8 @@ public class TargetHoll : FallHool
     {
         GameManager.Ins.OpenWindown(TypeWindown.NextLevel);
     }
+    public override void SetTarget()
+    {
+        
+    }
 }

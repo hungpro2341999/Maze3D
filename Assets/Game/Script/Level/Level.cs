@@ -27,8 +27,13 @@ public class Level : MonoBehaviour
         {
             hool.SetTarget();
         }
+        var Ground = transform.GetComponentsInChildren<GroundHool>();
+        foreach (var hool in Ground)
+        {
+            hool.SetTarget();
+        }
 
-     
+
     }
 
     public virtual void ResetLevel()
