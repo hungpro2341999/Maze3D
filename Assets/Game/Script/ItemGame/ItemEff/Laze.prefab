@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6544147577174923979
 Transform:
   m_ObjectHideFlags: 0
@@ -53,6 +53,10 @@ MonoBehaviour:
   ShootBack: 0
   ShootForWard: 0
   DelayShootBack: 1
+  Img: {fileID: 0}
+  PosRespawn: {x: 0, y: 0, z: 0}
+  DelayStart: 0
+  timeDelayStart: 0
 --- !u!65 &6544147577174923981
 BoxCollider:
   m_ObjectHideFlags: 0

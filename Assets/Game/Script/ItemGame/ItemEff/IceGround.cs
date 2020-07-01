@@ -8,9 +8,9 @@ public class IceGround : MonoBehaviour
    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8)
+        if (other.gameObject.tag == "Ball")
         {
-            var a = other.gameObject.GetComponent<BallControlScript>();
+            var a = other.transform.parent.gameObject.GetComponent<BallControlScript>();
         
         
             a.moveSpeedModifier +=1;
@@ -19,9 +19,9 @@ public class IceGround : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 8)
+        if (other.gameObject.tag == "Ball")
         {
-            var a = other.gameObject.GetComponent<BallControlScript>();
+            var a = other.transform.parent.gameObject.GetComponent<BallControlScript>();
 
 
             a.moveSpeedModifier -= 1;

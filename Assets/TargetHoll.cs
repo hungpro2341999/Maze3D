@@ -11,6 +11,13 @@ public class TargetHoll : FallHool
     }
     public override void SetTarget()
     {
-        
+        if (GetComponent<Renderer>() != null)
+        {
+            Target = GetComponent<Renderer>().bounds.center;
+        }
+        else
+        {
+            Target = transform.position;
+        }
     }
 }

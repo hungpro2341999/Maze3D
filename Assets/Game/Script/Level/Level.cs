@@ -21,6 +21,7 @@ public class Level : MonoBehaviour
     {
         Items =  transform.GetComponentsInChildren<Item>();
         Ball = transform.GetComponentInChildren<BallControlScript>();
+        Debug.Log(transform.name);
         PosInit = Ball.transform.position;
         var traps = transform.GetComponentsInChildren<FallHool>();
         foreach (var hool in traps)
