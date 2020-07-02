@@ -28,6 +28,7 @@ public class BallControlScript : MonoBehaviour {
 		body = GetComponent<Rigidbody>();
 		speedOnIce = 1;
 		AnimFallHoll = GetComponent<Animator>();
+		Application.targetFrameRate = 60;
 	}
 
 
@@ -73,9 +74,10 @@ public class BallControlScript : MonoBehaviour {
 		else
 		{
 		
-			 dirY = Input.GetAxis("Vertical")   * moveSpeedModifier;
-			 dirX = Input.GetAxis("Horizontal") * moveSpeedModifier;
-
+			 //dirY = Input.GetAxis ("Vertical")   * moveSpeedModifier;
+			 //dirX = Input.GetAxis("Horizontal") * moveSpeedModifier;
+			dirY = Input.acceleration.y * moveSpeedModifier;
+			dirX = Input.acceleration.x * moveSpeedModifier;
 
 		}
 

@@ -13,7 +13,7 @@ public class Lock : Item
 
 
     private int PreviousCountUnClockKey = 0;
-    private void Update()
+    public virtual void Update()
     {
         if (UnClock)
             return;

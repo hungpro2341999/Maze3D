@@ -24,10 +24,12 @@ public abstract class Trap : MonoBehaviour
     {
 
     }
-    public void AddTrap(BallControlScript ball)
+    public virtual void AddTrap(BallControlScript ball)
     {
         ball.AddOnActionDie(TriggerTrap,TrapActive, EndTrap,timeEnd);
     }
+
+  
 
 
     private void OnTriggerEnter(Collider other)
@@ -37,6 +39,11 @@ public abstract class Trap : MonoBehaviour
             ActiveEffTrap(other.transform.parent.GetComponent<BallControlScript>());
         }
 
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
         
     }
 }

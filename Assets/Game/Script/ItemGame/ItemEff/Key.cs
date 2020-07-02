@@ -5,11 +5,12 @@ using UnityEngine;
 public class Key : Item
 {
     
-    Animator AnimItem;
+   public  Animator AnimItem;
     public bool ActiveKey = false;
     private void Start()
     {
-        AnimItem = GetComponent<Animator>();
+        if (AnimItem==null)
+            AnimItem = GetComponent<Animator>();
     }
    
     public override void ActiveItemTriger(BallControlScript ball)
@@ -23,6 +24,9 @@ public class Key : Item
     }
     public override void ResetItem()
     {
+        Debug.Log(gameObject.name);
+        if (AnimItem == null)
+            AnimItem = GetComponent<Animator>();
         AnimItem.SetBool("Active", false);
         ActiveKey = false;
 

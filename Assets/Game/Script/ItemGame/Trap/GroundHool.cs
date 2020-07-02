@@ -8,25 +8,27 @@ public class GroundHool : Trap
     public Vector3 Target;
 
     public Vector3 PosContinue;
+    public override void AddTrap(BallControlScript ball)
+    {
+      
+    }
     public override void TriggerTrap(BallControlScript ball)
     {
-
-        Target = ball.transform.position + ball.body.velocity.normalized*3f;
+        
         ball.body.isKinematic = true;
         ball.body.velocity = Vector3.zero;
-        GamePlayCtrl.Ins.GetCurrLevel().PosContinue = new Vector3(PosContinue.x,ball.transform.position.y,PosContinue.z);
-
+        Vector3 posRespawn = new Vector3(PosContinue.x, ball.transform.position.y, PosContinue.z);
+        GamePlayCtrl.Ins.GetCurrLevel().PosContinue = posRespawn;
+        ball.AnimFallHoll.SetBool("Die", true);
 
     }
-
+   
     public override void TrapActive(BallControlScript ball)
     {
-        ball.transform.position = Vector3.MoveTowards(new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z),
-                                                  new Vector3(Target.x, ball.transform.position.y, Target.z), Time.deltaTime);
-        if (Vector3.Distance(ball.transform.position, Target) == 0)
-        {
-            ball.AnimFallHoll.SetBool("Die", true);
-        }
+      
+       
+           
+       
       
     }
 
@@ -40,5 +42,16 @@ public class GroundHool : Trap
         GameManager.Ins.isGameOver = true;
         GameManager.Ins.OpenWindown(TypeWindown.OverGame);
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Ball")
+        {
+            Add_Trap_When_Out(other.transform.parent.GetComponent<BallControlScript>());
+        }
+    }
 
+    public void Add_Trap_When_Out(BallControlScript ball)
+    {
+        ball.AddOnActionDie(TriggerTrap, TrapActive, EndTrap, timeEnd);
+    }
 }
