@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Teleport : Item
 {
-
+    
     public Teleport TargetPort;
     public bool Send = false;
+   
+
+
+
     public override void ActiveItemTriger(BallControlScript ball)
     {
         if (Send)
@@ -15,7 +19,12 @@ public class Teleport : Item
 
         
     }
-  
+    private void Update()
+    {
+        Vector3 rotation = transform.eulerAngles;
+        rotation.y +=10 * Time.deltaTime;
+        transform.eulerAngles = rotation;
+    }
 
     private void OnTriggerExit(Collider other)
     {

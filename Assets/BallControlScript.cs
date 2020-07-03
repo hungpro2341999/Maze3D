@@ -22,13 +22,17 @@ public class BallControlScript : MonoBehaviour {
 	
 	public event System.Action<float> OnActionDie;
 
-
+	public bool isAutoRespawn;
+	public float time;
+	public Vector3 posRespawn;
+	
 	void Start () {
 		
 		body = GetComponent<Rigidbody>();
 		speedOnIce = 1;
 		AnimFallHoll = GetComponent<Animator>();
 		Application.targetFrameRate = 60;
+		posRespawn = transform.position;
 	}
 
 
@@ -38,6 +42,24 @@ public class BallControlScript : MonoBehaviour {
 	
 
 	void Update () {
+
+		if(time > 3)
+		{
+			RaycastHit hit;
+			if (!Physics.SphereCast(new Vector3(transform.position.x,-10.2f,transform.position.z), 0.22f, transform.up, out hit, 0.22f, Mask))
+			{
+				posRespawn = transform.position;
+				Debug.Log("Acppet New Point");
+				time = 0;
+			}
+				
+		
+		}
+		else
+		{
+			time += Time.deltaTime;
+		}
+
 		if (Input.GetKeyDown(KeyCode.Q))
 		{
 
@@ -73,11 +95,11 @@ public class BallControlScript : MonoBehaviour {
 		}
 		else
 		{
-		
-			 //dirY = Input.GetAxis ("Vertical")   * moveSpeedModifier;
-			 //dirX = Input.GetAxis("Horizontal") * moveSpeedModifier;
-			dirY = Input.acceleration.y * moveSpeedModifier;
-			dirX = Input.acceleration.x * moveSpeedModifier;
+
+			dirY = Input.GetAxis("Vertical") * moveSpeedModifier;
+			dirX = Input.GetAxis("Horizontal") * moveSpeedModifier;
+			//dirY = Input.acceleration.y * moveSpeedModifier;
+			//dirX = Input.acceleration.x * moveSpeedModifier;
 
 		}
 
@@ -315,15 +337,15 @@ public class BallControlScript : MonoBehaviour {
 	private void OnDrawGizmos()
 	{
 		RaycastHit hit;
-		//Debug.Log(new Vector3(transform.position.x, transform.position.y, transform.position.z));
-		//if (Physics.SphereCast(new Vector3(transform.position.x, -10.1f, transform.position.z), 0.3f, transform.up, out hit, 0.3f, Mask))
-		//{
-		//	Debug.Log("Hit : " + hit.collider.gameObject.name);
-		//}
-		//else
-		//{
-		//	Debug.Log("Not Coll");
-		//}
+	//	Debug.Log(new Vector3(transform.position.x, transform.position.y, transform.position.z));
+		if (Physics.SphereCast(new Vector3(transform.position.x, -10.2f, transform.position.z), 0.3f, transform.up, out hit, 0.3f, Mask))
+		{
+			Debug.Log("Coll : "+hit.collider.gameObject.name);
+		}
+		else
+		{
+			Debug.Log("Not Coll");
+		}
 	}
 
 

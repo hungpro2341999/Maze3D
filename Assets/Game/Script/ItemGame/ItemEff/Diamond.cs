@@ -6,13 +6,19 @@ using UnityEngine;
 
 public class Diamond : Item
 {
-    public SpriteRenderer Img;
     
+    public SpriteRenderer Img;
+    public int id;
     public float speed;
     public bool ActiveKey = false;
     public void ChangeColor()
     {
         Img.color = new Color(0.5f, 0.5f, 0.5f, 1);
+    }
+
+    public void ChangeColorFailer()
+    {
+        Img.color = new Color(0, 0, 0, 1);
     }
 
     public override void ResetItem()
@@ -31,10 +37,22 @@ public class Diamond : Item
 
         if (ActiveKey)  
             return;
-        ChangeColor();
+
+        if(id == LockGem.CountUnGem)
+        {
+            LockGem.CountUnGem += 1;
+            ChangeColor();
+            ActiveKey = true;
+        }
+        else
+        {
+            ChangeColorFailer();
+        }
+
+        
         Debug.Log("ActiveKey");
-        LockGem.CountUnGem += 1;
-        ActiveKey = true;
+    
+       
     }
 
 

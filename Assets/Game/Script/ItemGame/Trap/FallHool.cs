@@ -17,7 +17,7 @@ public class FallHool : Trap
     
     private void Start()
     {
-        GetComponent<SphereCollider>().radius = 0.12f;
+        GetComponent<SphereCollider>().radius = 0.09f;
         GetComponent<SphereCollider>().isTrigger = true;
         timeEnd = 0.35f;
     }
@@ -41,10 +41,19 @@ public class FallHool : Trap
 
     public override void TriggerTrap(BallControlScript ball)
     {
+        if (ball.isAutoRespawn)
+        {
+            Vector3 posRespawn = new Vector3(ball.posRespawn.x, ball.transform.position.y, ball.posRespawn.z);
+            GamePlayCtrl.Ins.GetCurrLevel().PosContinue = posRespawn;
+        }
+        else
+        {
+            SetPosRespawn(ball);
+        }
         ball.body.isKinematic = true;
         ball.body.velocity = Vector3.zero;
         ball.AnimFallHoll.SetBool("Die", true);
-        SetPosRespawn(ball);
+      
     }
 
 
@@ -79,21 +88,23 @@ public class FallHool : Trap
 
         Debug.Log(gameObject.name);
 
-        if (type == TypeRespawn.Default)
-        {
-            if (transform.GetChild(0) != null)
-                PosRespawn = transform.GetChild(0).transform.position;
-        }
-        else if(type == TypeRespawn.Auto)
-        {
+        
+
+        //if (type == TypeRespawn.Default)
+        //{
+        //    if (transform.GetChild(0) != null)
+        //        PosRespawn = transform.GetChild(0).transform.position;
+        //}
+        //else if(type == TypeRespawn.Auto)
+        //{
           
            
             
-            for (int i= 0; i < 2; i++)
-            {
-                ArrayRespawn[i].posRespawn = transform.GetChild(i).transform.position;
-            }
-        }
+        //    for (int i= 0; i < 2; i++)
+        //    {
+        //        ArrayRespawn[i].posRespawn = transform.GetChild(i).transform.position;
+        //    }
+        //}
 
 
     }

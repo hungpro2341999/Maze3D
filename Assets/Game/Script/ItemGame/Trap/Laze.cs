@@ -26,7 +26,7 @@ public class Laze : Trap
 
     private void Start()
     {
-        
+        PosRespawn = transform.Find("PosRespawn").position;
     }
     private void Update()
     {
@@ -70,10 +70,17 @@ public class Laze : Trap
 
     }
 
+    public void SetTarget()
+    {
+        
+    }
+
     public override void TriggerTrap(BallControlScript ball)
     {
+        
         GameManager.Ins.OpenWindown(TypeWindown.OverGame);
         GameManager.Ins.isGameOver = true;
+        SetPosRespawn(ball);
     }
     public override void TrapActive(BallControlScript ball)
     {
@@ -84,9 +91,18 @@ public class Laze : Trap
     {
 
 
-      
-        PosRespawn = new Vector3(PosRespawn.x, ball.transform.position.y, PosRespawn.z);
-        GamePlayCtrl.Ins.GetCurrLevel().PosContinue = PosRespawn;
+        if (ball.isAutoRespawn)
+        {
+            GamePlayCtrl.Ins.GetCurrLevel().PosContinue = ball.posRespawn;
+
+        }
+        else
+        {
+            PosRespawn = new Vector3(PosRespawn.x, ball.transform.position.y, PosRespawn.z);
+            GamePlayCtrl.Ins.GetCurrLevel().PosContinue = PosRespawn;
+        }
+     
+       
 
 
 

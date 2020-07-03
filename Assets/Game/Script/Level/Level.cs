@@ -16,6 +16,7 @@ public class Level : MonoBehaviour
     public bool Test = false;
     private void Start()
     {
+         
         float defaultResolotion = 720;
 
         float per = Screen.width / defaultResolotion;
@@ -28,7 +29,7 @@ public class Level : MonoBehaviour
 
 
         //somewhere in update if screen is resizable
-
+        
 
 
     }
@@ -62,7 +63,7 @@ public class Level : MonoBehaviour
         {
             hool.SetTarget();
         }
-
+        
 
     }
 

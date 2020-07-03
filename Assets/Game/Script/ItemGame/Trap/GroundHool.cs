@@ -14,11 +14,19 @@ public class GroundHool : Trap
     }
     public override void TriggerTrap(BallControlScript ball)
     {
-        
-        ball.body.isKinematic = true;
-        ball.body.velocity = Vector3.zero;
-        Vector3 posRespawn = new Vector3(PosContinue.x, ball.transform.position.y, PosContinue.z);
-        GamePlayCtrl.Ins.GetCurrLevel().PosContinue = posRespawn;
+        if (!ball.isAutoRespawn)
+        {
+            ball.body.isKinematic = true;
+            ball.body.velocity = Vector3.zero;
+            Vector3 posRespawn = new Vector3(PosContinue.x, ball.transform.position.y, PosContinue.z);
+            GamePlayCtrl.Ins.GetCurrLevel().PosContinue = posRespawn;
+        }
+        else
+        {
+            GamePlayCtrl.Ins.GetCurrLevel().PosContinue = ball.posRespawn;
+        }
+   
+       
         ball.AnimFallHoll.SetBool("Die", true);
 
     }
