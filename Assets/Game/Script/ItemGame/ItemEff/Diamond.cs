@@ -8,22 +8,27 @@ public class Diamond : Item
 {
     
     public SpriteRenderer Img;
+    
     public int id;
     public float speed;
     public bool ActiveKey = false;
+    public Color colorCurr;
+    public Color colorActive;
+    private void Awake()
+    {
+        colorCurr = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+    }
+  
+
     public void ChangeColor()
     {
-        Img.color = new Color(0.5f, 0.5f, 0.5f, 1);
-    }
-
-    public void ChangeColorFailer()
-    {
-        Img.color = new Color(0, 0, 0, 1);
+        Img.color = colorActive;
     }
 
     public override void ResetItem()
     {
-        Img.color = new Color(1,1,1,1);
+        Img.color = colorCurr;
+        ActiveKey = false;
     }
 
     private void Update()
@@ -32,30 +37,33 @@ public class Diamond : Item
         rotation.y += speed * Time.deltaTime;
         transform.eulerAngles = rotation;
     }
-    public override void ActiveItemTriger(BallControlScript ball)
+   
+
+
+
+    public void AciveDiamond()
     {
-
-        if (ActiveKey)  
-            return;
-
-        if(id == LockGem.CountUnGem)
-        {
-            LockGem.CountUnGem += 1;
-            ChangeColor();
-            ActiveKey = true;
-        }
-        else
-        {
-            ChangeColorFailer();
-        }
-
+        var LocKGem = GamePlayCtrl.Ins.GetCurrLevel().GetLocKGemCurr();
+        LocKGem.AddDiamond(this);
         
-        Debug.Log("ActiveKey");
-    
-       
     }
 
+    public void BackToNormarl()
+    {
+        Img.color = colorCurr;
+    }
 
+    public void ActiveDiamond()
+    {
+        ActiveKey = true;
 
+    }
+    public override void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Ball1")
+        {
+            AciveDiamond();
+        }
+    }
 
 }

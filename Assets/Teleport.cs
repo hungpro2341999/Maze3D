@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Teleport : Item
 {
-    
+ public enum TypeTeleport { Single , Multi};   
     public Teleport TargetPort;
     public bool Send = false;
+    public TypeTeleport typeTepleport = TypeTeleport.Single;
    
 
 
@@ -19,10 +20,16 @@ public class Teleport : Item
 
         
     }
+
+    public override void ResetItem()
+    {
+        Send = false;
+    }
+
     private void Update()
     {
         Vector3 rotation = transform.eulerAngles;
-        rotation.y +=10 * Time.deltaTime;
+        rotation.y += 100 * Time.deltaTime;
         transform.eulerAngles = rotation;
     }
 
@@ -30,15 +37,27 @@ public class Teleport : Item
     {
         if (other.gameObject.tag == "Ball")
         {
+
             Send = false;
         }
     }
 
     public void SendToPort(Teleport Port,BallControlScript ball) 
     {
-        Port.Send = true;
-        ball.transform.position =  new Vector3(Port.transform.position.x,ball.transform.position.y, Port.transform.position.z);
+        if(typeTepleport == TypeTeleport.Single)
+        {
+             Port.Send = true;
+             ball.transform.position =  new Vector3(Port.transform.position.x,ball.transform.position.y, Port.transform.position.z);
+
+        }
+        else
+        {
+            Port.Send = true;
+            Port.TargetPort = this;
+            ball.transform.position = new Vector3(Port.transform.position.x, ball.transform.position.y, Port.transform.position.z);
+        }
     }
+       
      
      
    

@@ -25,9 +25,11 @@ public class BallControlScript : MonoBehaviour {
 	public bool isAutoRespawn;
 	public float time;
 	public Vector3 posRespawn;
+	public float speedCurr;
+	public float speedInit;
 	
 	void Start () {
-		
+		speedInit = moveSpeedModifier;
 		body = GetComponent<Rigidbody>();
 		speedOnIce = 1;
 		AnimFallHoll = GetComponent<Animator>();
@@ -96,10 +98,10 @@ public class BallControlScript : MonoBehaviour {
 		else
 		{
 
-			dirY = Input.GetAxis("Vertical") * moveSpeedModifier;
-			dirX = Input.GetAxis("Horizontal") * moveSpeedModifier;
-			//dirY = Input.acceleration.y * moveSpeedModifier;
-			//dirX = Input.acceleration.x * moveSpeedModifier;
+			//dirY = Input.GetAxis("Vertical") * moveSpeedModifier;
+			//dirX = Input.GetAxis("Horizontal") * moveSpeedModifier;
+			dirY = Input.acceleration.y * moveSpeedModifier;
+			dirX = Input.acceleration.x * moveSpeedModifier;
 
 		}
 
@@ -251,7 +253,7 @@ public class BallControlScript : MonoBehaviour {
 
     public void ResetBall()
 	{
-		
+		moveSpeedModifier = 0.2f;
 		OnActionDie = null;
 		body.isKinematic = false;
 		AnimFallHoll.SetBool("Die", false);

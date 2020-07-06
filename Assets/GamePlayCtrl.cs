@@ -64,6 +64,16 @@ public class GamePlayCtrl : MonoBehaviour
             }
         }
     }
+
+    public void NextLevel()
+    {
+        LevelGameCurr++;
+        OpenLevel(LevelGameCurr);
+
+
+
+
+    }
     public Level GetCurrLevel()
     {
          foreach (var level in LevesGame)

@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class LockGem : Item
 {
-    public static int CountUnGem;
-
+    public  int CountUnGem;
+    public static int DiamondCurr;   
     public int LockKey;
-
+   
     public bool UnClock = false;
     public Animator UnclockLock;
+    public List<Diamond> Diamonds = new List<Diamond>();
 
-    
+   
 
 
     private int PreviousCountUnClockKey = 0;
@@ -35,10 +36,50 @@ public class LockGem : Item
     }
     public override void ResetItem()
     {
+        DiamondCurr = -1;
         UnclockLock.SetBool("Active", false);
         PreviousCountUnClockKey = 0;
         CountUnGem = 0;
         UnClock = false;
         
     }
+
+  
+
+    public void AddDiamond(Diamond diamond)
+    {
+        if (diamond.ActiveKey)
+
+            return;
+
+        if (!Diamonds.Contains(diamond))
+        {
+            Diamonds.Add(diamond);
+            diamond.ChangeColor();
+        }
+        if (Diamonds.Count == 2)
+        {
+            
+            if (Diamonds[0].id == Diamonds[1].id)
+            {
+                CountUnGem++;
+                Diamonds[0].ActiveDiamond();
+                Diamonds[1].ActiveDiamond();
+                Diamonds.Clear();
+            }
+            else
+            {
+                Diamonds[0].BackToNormarl();
+                Diamonds.Remove(Diamonds[0]);
+
+            }
+
+           
+
+
+
+        } 
+    }
+
+    
 }

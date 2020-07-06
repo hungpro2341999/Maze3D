@@ -14,6 +14,21 @@ public class Level : MonoBehaviour
     public float FieldOfView;
     public float horizontalFOV = 32f;
     public bool Test = false;
+
+    public LockGem GetLocKGemCurr()
+    {
+        foreach(var locks in Items)
+        {
+            if(locks is LockGem)
+                {
+                return (LockGem)locks;
+                }
+        }
+        return null;
+    }
+
+
+
     private void Start()
     {
          

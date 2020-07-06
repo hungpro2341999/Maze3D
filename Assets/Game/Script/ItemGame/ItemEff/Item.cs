@@ -13,13 +13,16 @@ public class Item : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Ball")
         {
            
             ActiveItemTriger(other.gameObject.transform.parent.GetComponent<BallControlScript>());
         }
+
+
+
     }
  
   

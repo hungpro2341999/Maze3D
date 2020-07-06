@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class GamePlayWindown : Windown
 {
-    
-    
+
+    private void Update()
+    {
+        Application.targetFrameRate = 120;
+    }
 
 
 }
