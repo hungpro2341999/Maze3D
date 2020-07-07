@@ -10,7 +10,7 @@ public class GamePlayCtrl : MonoBehaviour
 
     public static GamePlayCtrl Ins;
 
-    public static int LevelGameCurr;
+    public int LevelGameCurr;
 
     private void Awake()
     {
@@ -28,19 +28,23 @@ public class GamePlayCtrl : MonoBehaviour
 
     public void OpenLevel(int levelMaze)
     {
-        
-        LevelGameCurr = levelMaze;
+        Debug.Log("Opne Level : "+levelMaze);
 
-        Debug.Log("Open");
+        LevelGameCurr = levelMaze;
+       
         foreach(var level in LevesGame)
         {
             if(level.level == levelMaze)
             {
                 level.StartLevel();
             }
+            else
+            {
+                level.gameObject.SetActive(false);
+            }
         }
 
-        GameManager.Ins.isGameOver = false;
+        GameManager.Ins.OpenSingleWindown(TypeWindown.PopUpLevel);
     }
 
     public void ContinueLevel()
@@ -50,7 +54,7 @@ public class GamePlayCtrl : MonoBehaviour
            
        
 
-        GameManager.Ins.isGameOver = false;
+              GameManager.Ins.isGameOver = false;
     }
 
     public void ResetLevel()
@@ -67,12 +71,18 @@ public class GamePlayCtrl : MonoBehaviour
 
     public void NextLevel()
     {
-        LevelGameCurr++;
+        LevelGameCurr+=1;
         OpenLevel(LevelGameCurr);
 
 
 
 
+    }
+    
+    public void Play()
+    {
+        GameManager.Ins.OpenWindown(TypeWindown.GamePlay);
+        OpenLevel(LevelGameCurr);
     }
     public Level GetCurrLevel()
     {
@@ -86,7 +96,22 @@ public class GamePlayCtrl : MonoBehaviour
         Debug.Log("Not level Visible");
         return null;
     }
+   public void BakeLight()
+    {
+        int x = 10;
+        int y = 0;
+        for(int i = 0; i < LevesGame.Count; i++)
+        {
+            if (i % 10 == 0)
+            {
+                y += 20;
 
+            }
+            float posx = x * i;
+
+            LevesGame[i].transform.position = new Vector3(posx, LevesGame[i].transform.position.y, y);
+        }
+    }
 }
 
 

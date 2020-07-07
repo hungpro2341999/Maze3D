@@ -10,5 +10,5 @@ public class GamePlayWindown : Windown
         Application.targetFrameRate = 120;
     }
 
-
+   
 }

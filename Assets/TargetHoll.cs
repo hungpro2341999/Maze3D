@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class TargetHoll : FallHool
 {
+    public override void TriggerTrap(BallControlScript ball)
+    {
+        GameManager.Ins.OpenSingleWindown(TypeWindown.PopUpWin);
+        ball.Die = true;
+        ball.body.isKinematic = true;
+        ball.body.velocity = Vector3.zero;
+        ball.AnimFallHoll.SetBool("Die", true);
 
+    }
     public override void EndTrap()
     {
-        GameManager.Ins.OpenWindown(TypeWindown.NextLevel);
+        GameManager.Ins.isGameOver = true;
     }
     public override void SetTarget()
     {

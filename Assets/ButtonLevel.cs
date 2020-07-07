@@ -10,7 +10,9 @@ public class ButtonLevel : MonoBehaviour
 
     public void Play()
     {
-        GameManager.Ins.OpenWindown(TypeWindown.GamePlay);
-        GamePlayCtrl.Ins.OpenLevel(levelSelect);
+        GamePlayCtrl.Ins.LevelGameCurr = levelSelect;
+        GameManager.Ins.OpenWindown(TypeWindown.PreviewLevel);
+        //  GamePlayCtrl.Ins.OpenLevel(levelSelect);
+      
     }
 }

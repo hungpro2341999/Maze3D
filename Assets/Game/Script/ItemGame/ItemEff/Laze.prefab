@@ -88,6 +88,8 @@ MonoBehaviour:
   PosRespawn: {x: 0, y: 0, z: 0}
   DelayStart: 0
   timeDelayStart: 0
+  BallIn: 0
+  CanKill: 0
 --- !u!65 &6544147577174923981
 BoxCollider:
   m_ObjectHideFlags: 0

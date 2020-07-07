@@ -238,6 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ba97ce7d5897141907ca3f8d9ff6d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CountUnGem: 0
   LockKey: 3
   UnClock: 0
   UnclockLock: {fileID: 3594069631779468919}
+  Diamonds: []

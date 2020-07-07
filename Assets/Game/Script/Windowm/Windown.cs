@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum TypeWindown {GamePlay,StartGame,OverGame,Select,NextLevel}
+using UnityEngine.UI;
+public enum TypeWindown {GamePlay,StartGame,OverGame,Select,NextLevel,PopUpWin,PopUpLevel,PreviewLevel}
 public class Windown : MonoBehaviour
 
    
 {
+
+   
     public TypeWindown type;
     public void Open()
     {
+        
         Event_Open();
         gameObject.SetActive(true);
     }

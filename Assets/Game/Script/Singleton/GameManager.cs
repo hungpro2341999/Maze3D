@@ -38,4 +38,21 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void OpenSingleWindown(TypeWindown type)
+    {
+        foreach (Windown win in Windowns)
+        {
+            if (win.type == type)
+            {
+                win.Open();
+                break;
+            }
+         
+        }
+
+    }
+    public void BakeLight()
+    {
+        
+    }
 }

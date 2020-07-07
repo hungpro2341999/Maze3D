@@ -137,6 +137,12 @@ TextureImporter:
   - first:
       213: 2449597141633354383
     second: SpriteAtlas_44
+  - first:
+      213: -1664133410132322525
+    second: SpriteAtlas_45
+  - first:
+      213: 6019678277372376374
+    second: SpriteAtlas_46
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -1162,7 +1168,7 @@ TextureImporter:
         width: 105
         height: 105
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 4, y: 3, z: 0, w: 1}
       outline: []
       physicsShape: []
@@ -1170,6 +1176,48 @@ TextureImporter:
       bones: []
       spriteID: 1bc89a40b3b31a940a1593fd5ff723aa
       internalID: 2449597141633354383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteAtlas_45
+      rect:
+        serializedVersion: 2
+        x: 947
+        y: 626
+        width: 114
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf2a7cadadfb119479c5253f6b627c98
+      internalID: -1664133410132322525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteAtlas_46
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 622
+        width: 109
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c4e35d861249c3489d6f1e68701e53f
+      internalID: 6019678277372376374
       vertices: []
       indices: 
       edges: []

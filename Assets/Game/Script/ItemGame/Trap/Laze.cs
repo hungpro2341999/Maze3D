@@ -21,12 +21,20 @@ public class Laze : Trap
     public Vector3 PosRespawn;
     public float DelayStart;
     public float timeDelayStart;
-   
+    public bool BallIn;
+    public bool CanKill = false;
 
 
     private void Start()
     {
         PosRespawn = transform.Find("PosRespawn").position;
+        GamePlayCtrl.Ins.GetCurrLevel().ResetContinueGame += ResetTrap;
+    }
+
+    public void ResetTrap()
+    {
+        BallIn = false;
+        CanKill = false;
     }
     private void Update()
     {
@@ -42,13 +50,30 @@ public class Laze : Trap
                 timeDelayShootBack = 0;
                 time += Time.deltaTime* SpeedDelay;
                 Img.color = new Color(1, 1, 1, 0.5f);
-                GetComponent<BoxCollider>().enabled = false;
+                //    GetComponent<BoxCollider>().enabled = false;
+                CanKill = false;
                
             }
             else
             {
-               
+                CanKill = true;
                 ShootLaze();
+            }
+        }
+
+        if (BallIn)
+        {
+            if (CanKill)
+            {
+                var ball = GamePlayCtrl.Ins.GetCurrLevel().Ball;
+                if (!ball.Die)
+                {
+                    GameManager.Ins.OpenWindown(TypeWindown.OverGame);
+                    GameManager.Ins.isGameOver = true;
+                    SetPosRespawn(ball);
+                    ball.Die = true;
+                }
+               
             }
         }
     }
@@ -57,7 +82,7 @@ public class Laze : Trap
     {
         if (timeDelayShootBack <= DelayShootBack)
         {
-            GetComponent<BoxCollider>().enabled = true;
+          //  GetComponent<BoxCollider>().enabled = true;
             Img.color = new Color(1, 1, 1, 1);
             timeDelayShootBack += Time.deltaTime;
         }
@@ -77,10 +102,10 @@ public class Laze : Trap
 
     public override void TriggerTrap(BallControlScript ball)
     {
-        
-        GameManager.Ins.OpenWindown(TypeWindown.OverGame);
-        GameManager.Ins.isGameOver = true;
-        SetPosRespawn(ball);
+       
+        //GameManager.Ins.OpenWindown(TypeWindown.OverGame);
+        //GameManager.Ins.isGameOver = true;
+        //SetPosRespawn(ball);
     }
     public override void TrapActive(BallControlScript ball)
     {
@@ -107,5 +132,19 @@ public class Laze : Trap
 
 
 
+    }
+    public override void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Ball1")
+        {
+            BallIn = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Ball1")
+        {
+            BallIn = false;
+        }
     }
 }

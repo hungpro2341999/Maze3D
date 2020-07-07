@@ -27,8 +27,11 @@ public class BallControlScript : MonoBehaviour {
 	public Vector3 posRespawn;
 	public float speedCurr;
 	public float speedInit;
-	
+	public bool Die = false;
+
+
 	void Start () {
+		
 		speedInit = moveSpeedModifier;
 		body = GetComponent<Rigidbody>();
 		speedOnIce = 1;
@@ -45,22 +48,7 @@ public class BallControlScript : MonoBehaviour {
 
 	void Update () {
 
-		if(time > 3)
-		{
-			RaycastHit hit;
-			if (!Physics.SphereCast(new Vector3(transform.position.x,-10.2f,transform.position.z), 0.22f, transform.up, out hit, 0.22f, Mask))
-			{
-				posRespawn = transform.position;
-				Debug.Log("Acppet New Point");
-				time = 0;
-			}
-				
 		
-		}
-		else
-		{
-			time += Time.deltaTime;
-		}
 
 		if (Input.GetKeyDown(KeyCode.Q))
 		{
@@ -79,24 +67,37 @@ public class BallControlScript : MonoBehaviour {
 		if (GameManager.Ins.isGameOver || GameManager.Ins.isGamePause)
 
 			return;
+		
 
 		if (OnActionDie!=null)
 		{
-			//body.velocity = Vector3.zero;
-			//body.isKinematic = true;
-			//transform.position = Vector3.MoveTowards(transform.position, HoolTarget, Time.deltaTime);
-			//if(transform.position == HoolTarget)
-			//{
-				
-			//	MoveToHool = false;
-			//}
-			//dirX = 0;
-			//dirY = 0;
-
+			
 			OnActionDie(Time.deltaTime);
 		}
 		else
 		{
+			if (Die)
+			{
+				return;
+			}
+
+			if (time > 3)
+			{
+				RaycastHit hit;
+				if (!Physics.SphereCast(new Vector3(transform.position.x, -10.2f, transform.position.z), 0.22f, transform.up, out hit, 0.22f, Mask))
+				{
+					posRespawn = transform.position;
+					Debug.Log("Acppet New Point");
+					time = 0;
+				}
+
+
+			}
+			else
+			{
+				time += Time.deltaTime;
+			}
+
 
 			//dirY = Input.GetAxis("Vertical") * moveSpeedModifier;
 			//dirX = Input.GetAxis("Horizontal") * moveSpeedModifier;
@@ -257,6 +258,7 @@ public class BallControlScript : MonoBehaviour {
 		OnActionDie = null;
 		body.isKinematic = false;
 		AnimFallHoll.SetBool("Die", false);
+		Die = false;
 	}
 
 	public void Done()
@@ -338,16 +340,16 @@ public class BallControlScript : MonoBehaviour {
 	}
 	private void OnDrawGizmos()
 	{
-		RaycastHit hit;
-	//	Debug.Log(new Vector3(transform.position.x, transform.position.y, transform.position.z));
-		if (Physics.SphereCast(new Vector3(transform.position.x, -10.2f, transform.position.z), 0.3f, transform.up, out hit, 0.3f, Mask))
-		{
-			Debug.Log("Coll : "+hit.collider.gameObject.name);
-		}
-		else
-		{
-			Debug.Log("Not Coll");
-		}
+	//	RaycastHit hit;
+	////	Debug.Log(new Vector3(transform.position.x, transform.position.y, transform.position.z));
+	//	if (Physics.SphereCast(new Vector3(transform.position.x, -10.2f, transform.position.z), 0.3f, transform.up, out hit, 0.3f, Mask))
+	//	{
+	//		Debug.Log("Coll : "+hit.collider.gameObject.name);
+	//	}
+	//	else
+	//	{
+	//		Debug.Log("Not Coll");
+	//	}
 	}
 
 

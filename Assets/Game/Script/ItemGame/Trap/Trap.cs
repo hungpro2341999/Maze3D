@@ -32,11 +32,16 @@ public abstract class Trap : MonoBehaviour
   
 
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Ball")
         {
-            ActiveEffTrap(other.transform.parent.GetComponent<BallControlScript>());
+            var ball = other.transform.parent.GetComponent<BallControlScript>();
+            if (ball.Die)
+            {
+                return;
+            }
+            ActiveEffTrap(ball);
         }
 
         

@@ -22,9 +22,12 @@ public class GroundHool : Trap
         {
             GamePlayCtrl.Ins.GetCurrLevel().PosContinue = ball.posRespawn;
         }
-   
-       
+        ball.Die = true;
+        Vector3 pos = ball.transform.localPosition;
+        pos.y = 0.15f;
+        ball.transform.localPosition = pos;
         ball.AnimFallHoll.SetBool("Die", true);
+       
 
     }
    

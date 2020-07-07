@@ -13,7 +13,7 @@ public class FallHollTarget : KillBall
     }
     private void CompleteGame()
     {
-        GameManager.Ins.OpenWindown(TypeWindown.NextLevel);
+      
         Debug.Log("CompleteGame");
     }
 }

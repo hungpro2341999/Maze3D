@@ -139,3 +139,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPort: {fileID: 0}
   Send: 0
+  typeTepleport: 0

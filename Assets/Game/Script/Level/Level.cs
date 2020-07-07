@@ -14,6 +14,7 @@ public class Level : MonoBehaviour
     public float FieldOfView;
     public float horizontalFOV = 32f;
     public bool Test = false;
+    public System.Action ResetContinueGame;
 
     public LockGem GetLocKGemCurr()
     {
@@ -31,7 +32,7 @@ public class Level : MonoBehaviour
 
     private void Start()
     {
-         
+        Test = true;
         float defaultResolotion = 720;
 
         float per = Screen.width / defaultResolotion;
@@ -40,13 +41,17 @@ public class Level : MonoBehaviour
         ResetLevel();
 
 
-        Camera.main.fieldOfView = calcVertivalFOV(horizontalFOV, Camera.main.aspect);
+      
 
 
         //somewhere in update if screen is resizable
         
 
 
+    }
+    private void OnEnable()
+    {
+        Camera.main.fieldOfView = calcVertivalFOV(horizontalFOV, Camera.main.aspect);
     }
 
     private void Update()
@@ -84,6 +89,7 @@ public class Level : MonoBehaviour
 
     public virtual void ResetLevel()
     {
+        CtrlEvaluatePlayer.timeInSeconds = 0;
         Camera.main.fieldOfView = FieldOfView;
         GameManager.Ins.isGameOver = false;
         foreach(var item in Items)
@@ -105,10 +111,15 @@ public class Level : MonoBehaviour
     }
     public void ContinueLevel()
     {
-        Ball.transform.position = PosContinue;
+        Ball.transform.position = new Vector3(PosContinue.x,PosInit.y,PosContinue.z);
         GameManager.Ins.isGameOver = false;
         Ball.body.velocity = Vector3.zero;
         Ball.body.isKinematic = false;
+        Ball.Die = false;
+        if(ResetContinueGame!=null)
+        {
+            ResetContinueGame();
+        }
     }
 
     public void CloseLevel()
