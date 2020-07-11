@@ -42,6 +42,8 @@ GameObject:
   - component: {fileID: 2500916666640291511}
   - component: {fileID: 2500916666640291509}
   - component: {fileID: 2500916666640291508}
+  - component: {fileID: 4164454251950175066}
+  - component: {fileID: 6662106143659619559}
   m_Layer: 0
   m_Name: Hool
   m_TagString: Untagged
@@ -59,8 +61,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.55, y: 0, z: 0.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2500916667534919256}
+  m_Children: []
   m_Father: {fileID: 2500916665822805402}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -109,60 +110,34 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &2500916667534919259
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2500916667534919256}
-  - component: {fileID: 2500916667534919262}
-  - component: {fileID: 2500916667534919257}
-  m_Layer: 10
-  m_Name: FallDown
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2500916667534919256
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2500916667534919259}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.55, y: 0.327, z: -0.799}
-  m_LocalScale: {x: 0.45454547, y: 0.45454547, z: 0.90909094}
-  m_Children: []
-  m_Father: {fileID: 2500916666640291511}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2500916667534919262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2500916667534919259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96e5c0f706b8c9745b2d3c5e92e38c9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!135 &2500916667534919257
+--- !u!135 &4164454251950175066
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2500916667534919259}
+  m_GameObject: {fileID: 2500916666640291510}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.20000005
+  m_Center: {x: -3.54, y: 0.23, z: -0.8019998}
+--- !u!114 &6662106143659619559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2500916666640291510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e5c0f706b8c9745b2d3c5e92e38c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeEnd: 0
+  Target: {x: 0, y: 0, z: 0}
+  Axit: {x: 0, y: 0, z: 0}
+  PosRespawn: {x: 0, y: 0, z: 0}
+  type: 0
+  ArrayRespawn: []

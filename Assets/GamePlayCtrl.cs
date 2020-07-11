@@ -11,7 +11,7 @@ public class GamePlayCtrl : MonoBehaviour
     public static GamePlayCtrl Ins;
 
     public int LevelGameCurr;
-
+    public int start = 0;
     private void Awake()
     {
         if (Ins != null)
@@ -22,10 +22,45 @@ public class GamePlayCtrl : MonoBehaviour
         {
             Ins = this;
         }
-
+        
+       
        
     }
+    private void Start()
+    {
+       // select(start);
 
+
+    }
+    public void select(int index)
+    {
+        for (int i = 0; i < LevesGame.Count; i++)
+        {
+            if (i == index)
+            {
+                LevesGame[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                LevesGame[i].gameObject.SetActive(false);
+            }
+
+        }
+    }
+    private void Update()
+    {
+      
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            start++;
+            select(start);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            start--;
+            select(start);
+        }
+    }
     public void OpenLevel(int levelMaze)
     {
         Debug.Log("Opne Level : "+levelMaze);

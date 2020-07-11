@@ -3,7 +3,27 @@ guid: d938f5937464c1f4ca695aa93719944a
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Combined_Mesh_(root__scene)_0Mat
+    second: {fileID: 2100000, guid: 2a90f70ecf6efc04ebca13b025564000, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Combined_Mesh_(root__scene)_1Mat
+    second: {fileID: 2100000, guid: 9293ef6dd1b7a3346bf3460ed6f5fe7a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Combined_Mesh_(root__scene)_2Mat
+    second: {fileID: 2100000, guid: b190c322b54541641a9307f66a605e60, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Combined_Mesh_(root__scene)_3Mat
+    second: {fileID: 2100000, guid: 80881579760bec240a50eedc732fe063, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

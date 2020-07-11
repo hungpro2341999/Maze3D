@@ -99,10 +99,10 @@ public class BallControlScript : MonoBehaviour {
 			}
 
 
-			//dirY = Input.GetAxis("Vertical") * moveSpeedModifier;
-			//dirX = Input.GetAxis("Horizontal") * moveSpeedModifier;
-			dirY = Input.acceleration.y * moveSpeedModifier;
-			dirX = Input.acceleration.x * moveSpeedModifier;
+			dirY = Input.GetAxis("Vertical") * moveSpeedModifier;
+			dirX = Input.GetAxis("Horizontal") * moveSpeedModifier;
+			//dirY = Input.acceleration.y * moveSpeedModifier;
+			//dirX = Input.acceleration.x * moveSpeedModifier;
 
 		}
 
@@ -254,7 +254,7 @@ public class BallControlScript : MonoBehaviour {
 
     public void ResetBall()
 	{
-		moveSpeedModifier = 0.2f;
+		moveSpeedModifier = speedInit;
 		OnActionDie = null;
 		body.isKinematic = false;
 		AnimFallHoll.SetBool("Die", false);
