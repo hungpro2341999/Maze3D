@@ -31,6 +31,7 @@ public class BallControlScript : MonoBehaviour {
 
 
 	void Start () {
+
 		
 		speedInit = moveSpeedModifier;
 		body = GetComponent<Rigidbody>();
@@ -110,7 +111,28 @@ public class BallControlScript : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-	
+
+		Debug.Log(body.velocity.sqrMagnitude);
+		if (body.velocity.sqrMagnitude > 0.35f)
+		{
+			AudioCtrl.Ins.SetVolumn("Move", body.velocity.sqrMagnitude*0.2f);
+			if (!AudioCtrl.Ins.isPlay("Move")) 
+			{
+				AudioCtrl.Ins.SetVolumn("Move", 1);
+				AudioCtrl.Ins.Play("Move");
+			}
+		
+			
+		}
+		else
+		{
+		
+				AudioCtrl.Ins.SetVolumn("Move", 0);
+			
+				
+		}
+		
+
 		if (!MoveToHool)
 		body.velocity = new Vector3 ((body.velocity.x  + dirX), 0,(body.velocity.z) + dirY);
 	}
@@ -254,7 +276,7 @@ public class BallControlScript : MonoBehaviour {
 
     public void ResetBall()
 	{
-		moveSpeedModifier = speedInit;
+		moveSpeedModifier = GamePlayCtrl.Ins.GetSpeed();
 		OnActionDie = null;
 		body.isKinematic = false;
 		AnimFallHoll.SetBool("Die", false);

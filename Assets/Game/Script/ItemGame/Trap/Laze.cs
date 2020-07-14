@@ -47,6 +47,7 @@ public class Laze : Trap
         {
             if (time <= Delay)
             {
+                AudioCtrl.Ins.SetVolumn("Laze", 0);
                 timeDelayShootBack = 0;
                 time += Time.deltaTime* SpeedDelay;
                 Img.color = new Color(1, 1, 1, 0.5f);
@@ -56,6 +57,13 @@ public class Laze : Trap
             }
             else
             {
+                AudioCtrl.Ins.SetVolumn("Laze", 1);
+                if (!AudioCtrl.Ins.isPlay("Laze"))
+                {
+                    AudioCtrl.Ins.Play("Laze");
+                }
+               
+
                 CanKill = true;
                 ShootLaze();
             }

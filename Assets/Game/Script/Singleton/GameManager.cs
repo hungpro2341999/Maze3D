@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
         {
             Ins = this;
         }
+    //    OpenWindown(TypeWindown.StartGame);
     }
     public void OpenWindown(Windown win)
     {

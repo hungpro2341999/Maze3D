@@ -86,7 +86,10 @@ public class Level : MonoBehaviour
         
 
     }
-
+    private void OnDrawGizmos()
+    {
+        Camera.main.fieldOfView = calcVertivalFOV(horizontalFOV, Camera.main.aspect); 
+    }
     public virtual void ResetLevel()
     {
         CtrlEvaluatePlayer.timeInSeconds = 0;
@@ -114,8 +117,10 @@ public class Level : MonoBehaviour
         Ball.transform.position = new Vector3(PosContinue.x,PosInit.y,PosContinue.z);
         GameManager.Ins.isGameOver = false;
         Ball.body.velocity = Vector3.zero;
+        Ball.AnimFallHoll.SetBool("Die", false);
         Ball.body.isKinematic = false;
         Ball.Die = false;
+        Ball.moveSpeedModifier = GamePlayCtrl.Ins.GetSpeed();
         if(ResetContinueGame!=null)
         {
             ResetContinueGame();

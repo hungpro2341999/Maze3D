@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class LoadAllLevel : MonoBehaviour
 {
+    
     public void LoadStart()
     {
 
-        var a = GameObject.Find("GameMananger").GetComponent<GamePlayCtrl>().LevesGame;
-        var gameCtrl = GameObject.Find("GameMananger").GetComponent<GamePlayCtrl>();
-        // var b =  Reset(a);
-        //  gameCtrl.LevesGame = b;
-        Sort(a);
-        //  int i = 0;
-        //var a =  transform.GetComponentsInChildren<Level>();
+       // var a = GameObject.Find("GameMananger").GetComponent<GamePlayCtrl>().LevesGame;
+        //var gameCtrl = GameObject.Find("GameMananger").GetComponent<GamePlayCtrl>();
+        // var b = Reset(a);
+        //gameCtrl.LevesGame = b;
+        //  Sort(a);
+        //  Sort1(a);
+        //int i = 0;
+        var a =  transform.GetComponentsInChildren<Level>();
 
 
 
@@ -23,11 +25,11 @@ public class LoadAllLevel : MonoBehaviour
         //    level.gameObject.SetActive(false);
 
         //}
-        //foreach (var level in a)
-        //{
+        foreach (var level in a)
+        {
 
-        //    level.SetUp();
-        //}
+            level.SetUp();
+        }
 
         //int x = 10;
         //int y = 0;
@@ -42,7 +44,7 @@ public class LoadAllLevel : MonoBehaviour
 
         //    a[i].transform.position = new Vector3(posx, a[i].transform.position.y, y);
         //    a[i].transform.position = new Vector3(0, a[i].gameObject.transform.position.y, 0);
-        //    a[i].gameObject.SetActive(false);
+        //   a[i].gameObject.SetActive(false);
         //}
 
     }

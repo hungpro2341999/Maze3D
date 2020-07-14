@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public enum TypeWindown {GamePlay,StartGame,OverGame,Select,NextLevel,PopUpWin,PopUpLevel,PreviewLevel}
+public enum TypeWindown {GamePlay,StartGame,OverGame,Select,NextLevel,PopUpWin,PopUpLevel,PreviewLevel,WindowAds,WindowPreviewLevelLock}
 public class Windown : MonoBehaviour
 
    

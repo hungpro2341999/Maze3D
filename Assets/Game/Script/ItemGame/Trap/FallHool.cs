@@ -63,7 +63,7 @@ public class FallHool : Trap
     {
         Debug.Log("OverGame");
         GameManager.Ins.isGameOver = true;
-        GameManager.Ins.OpenWindown(TypeWindown.OverGame);
+        GameManager.Ins.OpenSingleWindown(TypeWindown.OverGame);
 
     }
 

@@ -6,20 +6,14 @@ public class WindownOver : Windown
 { 
    public void ContinueGame()
     {
-        GamePlayCtrl.Ins.ContinueLevel();
-        GameManager.Ins.OpenWindown(TypeWindown.GamePlay);
+        GameManager.Ins.OpenWindown(TypeWindown.WindowAds);
     }
 
-    public void RestGame()
-    {
-        GamePlayCtrl.Ins.ResetLevel();
-        GameManager.Ins.OpenWindown(TypeWindown.GamePlay);
-
-    }
+   
 
     public void BackToHome()
     {
-        GameManager.Ins.OpenWindown(TypeWindown.StartGame);
+        GameManager.Ins.OpenWindown(TypeWindown.Select);
     }
 
 }

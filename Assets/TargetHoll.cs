@@ -11,11 +11,13 @@ public class TargetHoll : FallHool
         ball.body.isKinematic = true;
         ball.body.velocity = Vector3.zero;
         ball.AnimFallHoll.SetBool("Die", true);
+        AudioCtrl.Ins.Play("Complete");
 
     }
     public override void EndTrap()
     {
         GameManager.Ins.isGameOver = true;
+        
     }
     public override void SetTarget()
     {
